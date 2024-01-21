@@ -1,0 +1,239 @@
+{
+  "status": true,
+  "scode": "200",
+  "message": "操作成功",
+  "data": {
+    "deptId": 0,
+    "deptName": "云深文档",
+    "deptIcon": null,
+    "deptColor": null,
+    "haveSub": 1,
+    "subList": [
+      {
+        "deptId": 165,
+        "deptName": "AA",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 1,
+        "subList": [
+          {
+            "deptId": 167,
+            "deptName": "A1",
+            "deptIcon": null,
+            "deptColor": null,
+            "haveSub": 1,
+            "subList": [
+              {
+                "deptId": 170,
+                "deptName": "A1-2",
+                "deptIcon": null,
+                "deptColor": null,
+                "haveSub": 0,
+                "subList": null
+              }
+            ]
+          },
+          {
+            "deptId": 171,
+            "deptName": "A2",
+            "deptIcon": null,
+            "deptColor": null,
+            "haveSub": 1,
+            "subList": [
+              {
+                "deptId": 172,
+                "deptName": "A2-1",
+                "deptIcon": null,
+                "deptColor": null,
+                "haveSub": 0,
+                "subList": null
+              }
+            ]
+          },
+          {
+            "deptId": 190,
+            "deptName": "1229",
+            "deptIcon": null,
+            "deptColor": null,
+            "haveSub": 0,
+            "subList": null
+          }
+        ]
+      },
+      {
+        "deptId": 166,
+        "deptName": "B",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 1,
+        "subList": [
+          {
+            "deptId": 168,
+            "deptName": "B2",
+            "deptIcon": null,
+            "deptColor": null,
+            "haveSub": 0,
+            "subList": null
+          },
+          {
+            "deptId": 191,
+            "deptName": "1229",
+            "deptIcon": null,
+            "deptColor": null,
+            "haveSub": 0,
+            "subList": null
+          }
+        ]
+      },
+      {
+        "deptId": 173,
+        "deptName": "11",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 1,
+        "subList": [
+          {
+            "deptId": 192,
+            "deptName": "1229",
+            "deptIcon": null,
+            "deptColor": null,
+            "haveSub": 0,
+            "subList": null
+          }
+        ]
+      },
+      {
+        "deptId": 174,
+        "deptName": "22",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 1,
+        "subList": [
+          {
+            "deptId": 193,
+            "deptName": "1229",
+            "deptIcon": null,
+            "deptColor": null,
+            "haveSub": 0,
+            "subList": null
+          }
+        ]
+      },
+      {
+        "deptId": 175,
+        "deptName": "33",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 1,
+        "subList": [
+          {
+            "deptId": 194,
+            "deptName": "1229",
+            "deptIcon": null,
+            "deptColor": null,
+            "haveSub": 0,
+            "subList": null
+          }
+        ]
+      },
+      {
+        "deptId": 176,
+        "deptName": "44",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 1,
+        "subList": [
+          {
+            "deptId": 195,
+            "deptName": "1229",
+            "deptIcon": null,
+            "deptColor": null,
+            "haveSub": 0,
+            "subList": null
+          }
+        ]
+      },
+      {
+        "deptId": 177,
+        "deptName": "55",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 1,
+        "subList": [
+          {
+            "deptId": 196,
+            "deptName": "1229",
+            "deptIcon": null,
+            "deptColor": null,
+            "haveSub": 0,
+            "subList": null
+          }
+        ]
+      },
+      {
+        "deptId": 178,
+        "deptName": "66",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 0,
+        "subList": null
+      },
+      {
+        "deptId": 179,
+        "deptName": "77",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 0,
+        "subList": null
+      },
+      {
+        "deptId": 180,
+        "deptName": "88",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 0,
+        "subList": null
+      },
+      {
+        "deptId": 181,
+        "deptName": "99",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 0,
+        "subList": null
+      },
+      {
+        "deptId": 182,
+        "deptName": "100",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 0,
+        "subList": null
+      },
+      {
+        "deptId": 186,
+        "deptName": "3",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 0,
+        "subList": null
+      },
+      {
+        "deptId": 187,
+        "deptName": "4",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 0,
+        "subList": null
+      },
+      {
+        "deptId": 188,
+        "deptName": "44",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 0,
+        "subList": null
+      }
+    ]
+  }
+}

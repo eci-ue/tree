@@ -1,0 +1,58 @@
+{
+  "name": "@ue/modal",
+  "private": false,
+  "version": "0.4.0",
+  "type": "module",
+  "types": "types/index.d.ts",
+  "license": "MIT",
+  "main": "./dist/modal.js",
+  "scripts": {
+    "build": "vite build",
+    "test": "vite --clearScreen --port 3000",
+    "types": "node types.cjs"
+  },
+  "keywords": [
+    "modal"
+  ],
+  "author": {
+    "name": "svon",
+    "email": "svon.me@gmail.com",
+    "url": "https://github.com/svonme"
+  },
+  "homepage": "https://github.com/eci-ue/modal#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eci-ue/modal.git"
+  },
+  "devDependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
+    "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.19",
+    "postcss-import": "^15.0.1",
+    "tailwindcss": "^3.3.3",
+    "@fengqiaogang/dblist": "0.4.9-2",
+    "@types/lodash-es": "^4.17.6",
+    "@types/node": "^18.8.4",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vitejs/plugin-vue-jsx": "^3.0.0",
+    "ant-design-vue": "^4.1.1",
+    "less": "^4.2.0",
+    "lodash-es": "^4.17.21",
+    "shelljs": "^0.8.5",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.6.4",
+    "vite": "^5.0.11",
+    "vue": "^3.4.14",
+    "vue-tsc": "^1.0.24"
+  },
+  "files": [
+    "dist/",
+    "types/",
+    "style/",
+    "LICENSE",
+    "README.md",
+    "package.json"
+  ]
+}
