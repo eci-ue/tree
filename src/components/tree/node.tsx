@@ -8,7 +8,7 @@ import * as types from "../props";
 import { defineComponent, h as createElement } from "vue";
 import { CaretRightOutlined, CaretDownOutlined } from "@ant-design/icons-vue";
 
-import type { VNode } from "vue";
+import type { Component, VNode } from "vue";
 import type { Node, NodeProps as Props } from "./type";
 
 const TreeNode = defineComponent({
@@ -29,11 +29,23 @@ const TreeNode = defineComponent({
         onExpand && onExpand(expand ? false : true);
       }
       const className = ["cursor-pointer", "text-xl", "text-primary"];
-      if (_.isString(icon)) {
-        if(slots.icon) {
-          return slots.icon({ node, expand, onClick, "class": className });
+      let value: VNode | Component;
+      if(slots.icon) {
+        value = slots.icon({ node, expand, onClick, "class": className });
+      }
+      
+      let flag = false;
+      for (const vnode of [].concat(value)) {
+        if (vnode && (vnode.props || vnode.component)) {
+          flag = true;
+          break;
         }
-      } else {
+      }
+      if (flag) {
+        return value;
+      }
+      
+      if (icon) {
         className.push("flex");
         return createElement(icon, { onClick, "class": className });
       }
@@ -42,7 +54,7 @@ const TreeNode = defineComponent({
     
     const Render = function (props: Props, node: Node, index: number, expand?: boolean, onExpand?: (expand: boolean) => void): VNode {
       let icon: VNode;
-      let label: VNode | undefined;
+      let label: VNode | Component | undefined;
       if (node.icon) {
         icon = prefixIcon(node, expand, onExpand, node.icon);
       } else if (node.children && node.children.length > 0) {

@@ -34,6 +34,10 @@ export default defineComponent({
      */
     deep: types.toBoolean(false, false),
     /**
+     * 穿梭框
+     */
+    transfer: types.toBoolean(false, false),
+    /**
      * 数据列表
      */
     list: types.toArray<Node>(false, []),
@@ -76,7 +80,9 @@ export default defineComponent({
           {slots.header ? slots.header() : null}
           {props.search && <Search primary={props.primary} foreign={props.foreign} list={props.list} labelName={ props.labelName } onSelect={onSelect}></Search>}
         </LayoutHeader>
-        <LayoutContent>{content}</LayoutContent>
+        <LayoutContent>
+          {content}
+        </LayoutContent>
       </Layout>);
     }
   }

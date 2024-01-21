@@ -10,14 +10,11 @@ db.insert(json.data, "subList");
 
 const list = ref<object[]>([]);
 
-list.value = db.childrenDeep().map(function(item: object) {
-  return { ...item, icon: <CreditCardOutlined></CreditCardOutlined> };
-});
+list.value = db.childrenDeep();
 
 const active = ref<string>();
 const expand = ref<string[]>([]);
 const checked = ref<string[]>([]);
-
 
 
 </script>
@@ -30,9 +27,15 @@ const checked = ref<string[]>([]);
       v-model:checked="checked" 
       :list="list" 
       :checkbox="true" 
+      :transfer="true" 
       :primary="db.primary" 
       :foreign="db.foreign" 
       labelName="deptName">
+        <template #icon="{ node, class: className }">
+          <template v-if="node.pid === db.foreignValue">
+            <CreditCardOutlined class="flex" :class="className"></CreditCardOutlined>
+          </template>
+        </template>
     </Tree>
   </div>
 </template>
