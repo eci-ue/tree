@@ -1,28 +1,28 @@
 {
-  "name": "@ue/modal",
+  "name": "@ue/tree",
   "private": false,
-  "version": "0.4.0",
+  "version": "0.1.1",
   "type": "module",
   "types": "types/index.d.ts",
   "license": "MIT",
-  "main": "./dist/modal.js",
+  "main": "./dist/tree.js",
   "scripts": {
     "build": "vite build",
-    "test": "vite --clearScreen --port 3000",
-    "types": "node types.cjs"
+    "types": "node types.cjs",
+    "test": "vite --clearScreen --port 3000"
   },
   "keywords": [
-    "modal"
+    "tree"
   ],
   "author": {
     "name": "svon",
     "email": "svon.me@gmail.com",
     "url": "https://github.com/svonme"
   },
-  "homepage": "https://github.com/eci-ue/modal#readme",
+  "homepage": "https://github.com/eci-ue/tree#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eci-ue/modal.git"
+    "url": "git+https://github.com/eci-ue/tree.git"
   },
   "devDependencies": {
     "@ant-design/icons-vue": "^6.1.0",

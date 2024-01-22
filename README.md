@@ -1,115 +1,244 @@
-<h1 align="center">@ue/modal</h1>
+# @ue/tree
 
-<div align="center">
-  <h3>基于 Ant Design 而封装的弹框</h3>
-  <p>简单配置，快速开发</p>
-</div>
-
-## 功能
-
-- 使用简单，无需配置 Dom 结构
-- 无需使用变量控制 Modal 的显示与隐藏
+基于 Ant Design 而封装的 tree 组件
 
 ## 安装
 
 ```
-pnpm install @ue/modal --registry http://npm.ectranslate.com/
+pnpm install @ue/tree --registry http://npm.ectranslate.com/
 ```
 
-**使用**
+### 基础数据
 
-```
-import * as modal from "@ue/modal";
-```
-
-## 案例
-
-**字符**
-```
-<script setup lang="ts">
-import * as modal from "@ue/modal";
-import { Button } from "ant-design-vue";
-
-const onClick = function() {
-  modal.confirm("hello World", "提示");
-}
-</script>
-
-<template>
-  <div>
-    <Button @click="onClick">提示</Button>
-  </div>
-</template>
-```
-
-**表单**
-```
-<script setup lang="ts">
-import * as modal from "@ui/modal";
-import { Input, InputPassword, Button } from "ant-design-vue";
-
-const items = [
+```json
+[
   {
-    key: "name",
-    component: Input,
-    props: { placeholder: "请输入账号" }
+    "deptId": 165,
+    "deptName": "A",
+    "deptIcon": null,
+    "deptColor": null,
+    "haveSub": 1,
+    "pid": -1,
+    "children": [
+      {
+        "deptId": 167,
+        "deptName": "A1",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 1,
+        "pid": 165,
+        "children": [
+          {
+            "deptId": 170,
+            "deptName": "A1-2",
+            "deptIcon": null,
+            "deptColor": null,
+            "haveSub": 0,
+            "pid": 167
+          }
+        ]
+      },
+      {
+        "deptId": 171,
+        "deptName": "A2",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 1,
+        "pid": 165,
+        "children": [
+          {
+            "deptId": 172,
+            "deptName": "A2-1",
+            "deptIcon": null,
+            "deptColor": null,
+            "haveSub": 0,
+            "pid": 171
+          }
+        ]
+      },
+      {
+        "deptId": 190,
+        "deptName": "1229",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 0,
+        "pid": 165
+      }
+    ]
   },
   {
-    key: "password",
-    component: InputPassword,
-    props: { placeholder: "请输入密码" }
+    "deptId": 166,
+    "deptName": "B",
+    "deptIcon": null,
+    "deptColor": null,
+    "haveSub": 1,
+    "pid": -1,
+    "children": [
+      {
+        "deptId": 168,
+        "deptName": "B2",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 0,
+        "pid": 166
+      },
+      {
+        "deptId": 191,
+        "deptName": "1229",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 0,
+        "pid": 166
+      }
+    ]
+  },
+  {
+    "deptId": 173,
+    "deptName": "11",
+    "deptIcon": null,
+    "deptColor": null,
+    "haveSub": 1,
+    "pid": -1,
+    "children": [
+      {
+        "deptId": 192,
+        "deptName": "1229",
+        "deptIcon": null,
+        "deptColor": null,
+        "haveSub": 0,
+        "pid": 173
+      }
+    ]
   }
-];
+]
+```
 
-const onModal = async function() {
-  const data = await modal.form<{ name: string, password: string }>(items, "用户登录");
-  if (data) {
-    console.log(data);
-  }
-}
+### 使用
+
+```vue
+<script setup lang="ts">
+import tree from "@ue/tree";
+
+const list = ref<object[]>([...]);    // 基础数据
+const active = ref<string>();      // 记录选中的节点数据
+const expand = ref<string[]>([]);  // 记录已展开的节点数据
+const checked = ref<string[]>([]); // 记录已选中的节点数据
 </script>
 
 <template>
-  <div>
-    <Button @click="onModal">弹框模式表单</Button>
+  <div style="width: 300px; height: 500px;">
+    <Tree 
+      v-model:active="active" 
+      v-model:expand="expand" 
+      v-model:checked="checked"
+      :list="list"
+      :checkbox="true"
+      primary="deptId"
+      foreign="pid"
+      labelName="deptName">
+    </Tree>
   </div>
 </template>
 ```
 
-**组件**
+### Slots Icon
+```vue
+<template>
+  <div style="width: 300px; height: 500px;">
+    <Tree 
+      v-model:active="active" 
+      v-model:expand="expand" 
+      v-model:checked="checked"
+      :list="list"
+      :checkbox="true"
+      primary="deptId"
+      foreign="pid"
+      labelName="deptName">
 
-[参考@ui/form](https://github.com/eci-ui/form#readme)
-
-## 参数配置
-
+      <template #icon="{ node, className, onClick }">
+        <!-- 
+          此处自定义 icon 的展示
+          Node: 节点数据
+          className: 默认的 class 名称
+          onClick: 点击事件回调方法
+        -->
+      </template>
+      
+    </Tree>
+  </div>
+</template>
 ```
-import * as modal from "@ui/modal";
 
-import xxx from "xxx.vue";
+### Slots Label
+```vue
+<template>
+  <div style="width: 300px; height: 500px;">
+    <Tree 
+      v-model:active="active" 
+      v-model:expand="expand" 
+      v-model:checked="checked"
+      :list="list"
+      :checkbox="true"
+      primary="deptId"
+      foreign="pid"
+      labelName="deptName">
 
-const data = await modal.confirm(xxx, {
-  title: "弹框",
-  width: 600,
-}, {
-  // xxxx 组件所需 props 数据
-})
-
+      <template #label="{ node }">
+        <!-- 
+          此处自定义 label 的展示
+          Node: 节点数据
+        -->
+      </template>
+      
+    </Tree>
+  </div>
+</template>
 ```
 
-名称 | 类型 | 是否必填 | 描述
--- | -- | -- | -- 
-value | string、Component | 是 | 弹框内容
-config | string、ModalFuncProps | 否 | Antd Modal Props 配置, 为 String 时默认为 title
-props | Object | 否 | 当 value 为 Component 时有效, 以 Props 时传给该组件
+### Slots Operate
 
+此 Slot 为节点右侧末尾功能, 可以自定义右键菜单功能
 
+```vue
+<template>
+  <div style="width: 300px; height: 500px;">
+    <Tree 
+      v-model:active="active" 
+      v-model:expand="expand" 
+      v-model:checked="checked"
+      :list="list"
+      :checkbox="true"
+      primary="deptId"
+      foreign="pid"
+      labelName="deptName">
 
-**iframe**
-
+      <template #operate="{ node }">
+        <!-- 
+          此处自定义 operate 的展示
+          Node: 节点数据
+        -->
+      </template>
+      
+    </Tree>
+  </div>
+</template>
 ```
-import * as modal from "@ue/modal";
 
-const onClick = function() {
-  // 以全屏方式展示
-  modal.iframe("url");
-}
+
+### 参数配置
+
+名称 | 类型               | 是否必填 | 默认值       | 描述
+--- |------------------|---|-----------| -- 
+search | Boolean          | 否 | true      | 搜索框
+primary | String           | 否 | id        | 节点数据主键字段
+foreign | String           | 否 | pid       | 节点父级数据外键字段
+labelName | String           | 否 | name      | 节点名称字段
+list | Object[]         | 否 | []        | 节点列表数据
+checkbox | Boolean          | 否 | false     |是否启用复选框   
+radio | Boolean          | 否 | false | 是否启用单选框   
+active | string \| number | 否 | undefined | 选中的节点数据主键
+expand | Array<string \| number>          | 否 | []        | 已展开的节点数据
+checked | Array<string \| number>          | 否 | []        | 已选中的节点数据
+deep | Boolean | 否 | false     | checkbox 为 true 有用, 选中父元素时是否默认选中子元素 
+transfer | Boolean | 否 | false  | checkbox / radio 为 true 有用, 以穿梭框的风格在右侧展示已选中的节点数据
+
