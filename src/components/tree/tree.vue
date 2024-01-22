@@ -1,12 +1,16 @@
 <script setup lang="tsx">
-import { ref, h } from "vue";
+import { computed } from "vue";
 import * as _ from "lodash-es";
 import Content from "./content";
 import * as types from "../props";
+import { getIndeterminate } from "./util";
+import DBList from "@fengqiaogang/dblist";
 import Search from "../search/auto/complete";
-import { Layout, LayoutHeader, LayoutContent, RadioGroup, Checkbox, Radio } from "ant-design-vue";
+import { Layout, LayoutHeader, LayoutContent, RadioGroup } from "ant-design-vue";
+import type {Node} from "src/components/tree/type";
 
 const slots = defineSlots();
+const $emit = defineEmits(["expand"]);
 const props = defineProps({
   /**
    * 是否展示Search
@@ -43,8 +47,40 @@ const props = defineProps({
   checked: types.toArray<string | number>(false, []),
 })
 
-const key = ref<string>(_.uniqueId("tree"));
-const className = ["block", "h-full", "p-5", "overflow-auto"];
+const expandValue = computed<Array<string | number>>({
+  get: () => props.expand,
+  set: (value: Array<string | number>) => {
+    $emit("update:expand", value);
+  }
+});
+const checkedValue = computed<Array<string | number> | string | number>({
+  get: () => {
+    if (props.radio) {
+      return props.checked[0];
+    }
+    return _.concat([], props.checked);
+  },
+  set: (value: Array<string | number> | string | number) => {
+    const list = _.concat([], value);
+    $emit("update:checked", list);
+  }
+});
+
+const activeValue = computed<string | number>({
+  get: () => props.active,
+  set: (value: string | number) => {
+    $emit("update:active", value);
+  }
+});
+
+const indeterminate = computed(function () {
+  const db = new DBList<Node>(props.list, props.primary, props.foreign);
+  return getIndeterminate(db, {
+    radio: props.radio,
+    checked: props.checked,
+    primary: props.primary,
+  } as any);
+});
 
 </script>
 
@@ -55,20 +91,24 @@ const className = ["block", "h-full", "p-5", "overflow-auto"];
       <Search v-if="search" :list="list" :primary="primary" :foreign="foreign" :label-name="labelName"></Search>
     </LayoutHeader>
     <LayoutContent>
-      <RadioGroup v-if="radio" :class="className" :value="checked[0]">{{ key }}</RadioGroup>
-      <div v-else :class="className">
-        <Content 
+      <component class="block h-full p-5 overflow-auto" :is="radio ? RadioGroup : 'div'" v-model:value="checkedValue">
+        <Content
           :list="list" 
           :primary="primary" 
           :foreign="foreign" 
           :label-name="labelName" 
           :deep="deep" 
-          :radio="radio" 
-          :checkbox="checkbox" 
-          :active="active" 
-          :expand="expand" 
-          :checked="checked"></Content>
-      </div>
+          :radio="radio"
+          :checkbox="checkbox"
+          :indeterminate="indeterminate"
+          v-model:active="activeValue"
+          v-model:expand="expandValue"
+          v-model:checked="checkedValue">
+          <template v-for="(index, name) in $slots" :key="`${index}-${name}`" v-slot:[name]="scope">
+            <slot :name="name" v-bind="scope"></slot>
+          </template>
+        </Content>
+      </component>
     </LayoutContent>
   </Layout>
 </template>

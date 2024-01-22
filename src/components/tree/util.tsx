@@ -1,12 +1,13 @@
-import TreeNode from "./node";
 import * as _ from "lodash-es";
 import DBList from "@fengqiaogang/dblist";
-import { Checkbox, Radio } from "ant-design-vue";
-import type { Slot } from "vue";
 import type { Node, TreeProps as Props } from "./type";
 
+export const isExpand = function (value: string | number, list?: Array<string | number>) {
+  return !!(list && _.includes(list, value));
+}
+
 // 计算半选状态
-const getIndeterminate = function (db: DBList<Node>, props: Props) {
+export const getIndeterminate = function (db: DBList<Node>, props: Props) {
   const indeterminate: object = {};
   if (props.radio || !props.checked || _.size(props.checked) < 1) {
     return indeterminate;
@@ -83,88 +84,4 @@ export const onChecked = function (
   return _.uniq(checkedList);
 };
 
-export const onActive = function (value: string | number, emit: (event: string, value: any) => void) {
 
-  emit("active", value);
-  emit("update:active", value);
-};
-
-export const VNode = function (
-  key: string,
-  props: Props,
-  slots: object,
-  emit: (event: string, value: any) => void
-) {
-  const db = new DBList<Node>(props.list, props.primary, props.foreign);
-
-  const onExpand = function (value: string | number, status: boolean = false) {
-    let list = _.compact(_.concat([], props.expand));
-    if (status) {
-      list.push(value);
-    } else {
-      // 删除选中元素
-      list = _.difference(list, [value]);
-    }
-    emit("update:expand", list);
-  };
-  // 复选框选中事件
-  const onClick = function (node: Node) {
-    const checked = onChecked(db, props.deep || false, props.checked, node);
-    emit("update:checked", checked);
-  };
-  let checkbox: Slot;
-  if (props.checkbox || props.radio) {
-    checkbox = getCheckbox(key, props, getIndeterminate(db, props), onClick);
-  }
-  const children = { ..._.omit(slots, ["header"]), checkbox };
-
-  const option = {
-    primary: props.primary,
-    labelName: props.labelName,
-
-    list: props.list,
-
-    active: props.active,
-    onActive: (value: string | number) => onActive(value, emit),
-
-    expand: props.expand,
-    onExpand: onExpand,
-  };
-  return <TreeNode {...option}>{children}</TreeNode>;
-};
-
-const getCheckbox = function (
-  key: string,
-  props: Props,
-  indeterminate: object,
-  onClick: (value: Node) => void
-) {
-  if (props.checkbox) {
-    return function ({ node }: { node: Node }) {
-      const value = node[props.primary];
-      const status = _.get(indeterminate, value) ? true : false;
-      const checked = _.includes(props.checked, value);
-      const onChange = () => onClick(node);
-      return (
-        <div class="mr-2">
-          <Checkbox
-            checked={checked}
-            name={`${key}-node`}
-            indeterminate={status}
-            onChange={onChange}
-          ></Checkbox>
-        </div>
-      );
-    };
-  }
-  if (props.radio) {
-    return function ({ node }: { node: Node }) {
-      const value = node[props.primary];
-      return (
-        <div class="mr-2">
-          <Radio class="mr-0" value={value}></Radio>
-        </div>
-      );
-    };
-  }
-};

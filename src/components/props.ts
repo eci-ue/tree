@@ -26,6 +26,7 @@ export const toArray = function<T>(required: boolean = false, defaultValue?: Arr
   return create<Array<T>>(String, required, defaultValue, validate);
 }
 
-export const toObject = function(required: boolean = false, defaultValue?: object, validate?: (value: object) => object) {
-  return create<object>(String, required, defaultValue || {}, validate);
+export const toObject = function<T = object>(required: boolean = false, defaultValue?: object, validate?: (value: T) => T) {
+  const def = defaultValue || {};
+  return create<T>(String, required, def as T, validate);
 }
