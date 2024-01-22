@@ -31,5 +31,6 @@ export interface TreeProps extends Props {
   checked: Array<string | number>;       // 复选框/单选框选中状态
   checkbox?: boolean;      // 是否启用复选框功能
   radio?: boolean;         // 是否启用单选框功能
-  indeterminate: object;
+  indeterminate?: object;
+  transfer?: boolean;
 }

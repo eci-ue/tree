@@ -24,7 +24,8 @@ const checked = ref<string[]>([]);
     <Tree 
       v-model:active="active" 
       v-model:expand="expand" 
-      v-model:checked="checked" 
+      v-model:checked="checked"
+      :search="true"
       :list="list" 
       :radio="false"
       :checkbox="true"
