@@ -1,4 +1,9 @@
 <script setup lang="ts">
+/**
+ * @file tree node
+ * @author svon.me@gmail.com
+ */
+
 import  * as _ from "lodash-es";
 import * as types from "../props";
 import { isExpand } from "./util";

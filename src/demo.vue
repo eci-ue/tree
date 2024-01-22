@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 import { ref } from "vue";
 import json from "./json.json";
-import Tree from "./components/tree";
+import Tree from "./components";
 import { DBList } from "@fengqiaogang/dblist";
 import { CreditCardOutlined, EllipsisOutlined } from "@ant-design/icons-vue";
 

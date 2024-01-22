@@ -1,3 +1,8 @@
+/**
+ * @file Tree
+ * @author svon.me@gmail.com
+ */
+
 import * as _ from "lodash-es";
 import Content from "./content";
 import * as types from "../props";
@@ -99,7 +104,7 @@ export default defineComponent({
           const list: Node[] = getTransferResult(props.list, props.primary, props.foreign, props.checked);
           const className: string[] = ["h-full", "border", "border-solid", "border-[#d9d9d9]", "rounded-md", "p-2"];
 
-          return (<div class="h-full w-full relative">
+          return (<div class="h-full relative">
             <div class="h-full w-1/2 pr-5">
               <div class={className}>{treeContent(props.list)}</div>
             </div>

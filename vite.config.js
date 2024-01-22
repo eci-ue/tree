@@ -27,10 +27,10 @@ export default defineConfig({
     target: "modules",
     polyfillModulePreload: false,
     lib: {
-      entry: "src/index",
-      name: "modal",
+      entry: "src/components/index",
+      name: "tree",
       formats: ["es"],
-      fileName: "modal"
+      fileName: "tree"
     },
     cssCodeSplit: true,
     sourcemap: true,
@@ -40,7 +40,8 @@ export default defineConfig({
         /^vue/i,
         /^lodash/i,
         /^ant/i,
-        /^@ue/i,
+        /^@ant-design/i,
+        /^@fengqiaogang/i
       ],
       output: {
         inlineDynamicImports: true
