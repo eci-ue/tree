@@ -6,11 +6,11 @@
 import * as _ from "lodash-es";
 import Content from "./content";
 import * as types from "../props";
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import DBList from "@fengqiaogang/dblist";
 import Search from "../search/auto/complete";
 import { SwapOutlined } from "@ant-design/icons-vue";
-import { Node, TreeProps} from "src/components/tree/type";
+import { Node, TreeProps } from "src/components/tree/type";
 import { getIndeterminate, getTransferResult, onChecked } from "./util";
 import { Layout, LayoutHeader, LayoutContent, RadioGroup } from "ant-design-vue";
 
@@ -53,7 +53,7 @@ export default defineComponent({
     expand: types.toArray<string | number>(false, []),
     checked: types.toArray<string | number>(false, []),
   },
-  setup (props: TreeProps, { slots, emit }) {
+  setup(props: TreeProps, { slots, emit }) {
     const updateHook = {};
     _.set(updateHook, "onUpdate:active", function (value: string | number) {
       emit("update:active", value);
@@ -87,16 +87,16 @@ export default defineComponent({
       } as any);
       const treeContent = function (value: Node[]) {
         const attr: object = { ...props, ...updateHook, indeterminate, list: value };
-        const nodes = (<Content class="h-full" { ...attr }>{ slots }</Content>);
+        const nodes = (<Content class="h-full" {...attr}>{slots}</Content>);
         if (props.radio) {
           const change = function (keys: string | number) {
             const list: Array<string | number> = _.concat([], keys);
             updateHook["onUpdate:checked"](list);
           };
           const option: object = { value: props.checked[0], "onUpdate:value": change };
-          return <RadioGroup class="block h-full" { ...option }>{ nodes }</RadioGroup>
+          return <RadioGroup class="block h-full" {...option}>{nodes}</RadioGroup>
         }
-        return <div class="h-full">{ nodes }</div>;
+        return <div class="h-full">{nodes}</div>;
       }
       const body = function () {
         // 穿梭狂模式
@@ -110,7 +110,7 @@ export default defineComponent({
             </div>
 
             <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <div class="flex items-center px-3 text-lg text-primary"><SwapOutlined/></div>
+              <div class="flex items-center px-3 text-lg text-primary"><SwapOutlined /></div>
             </div>
 
             <div class="absolute right-0 top-0 bottom-0 w-1/2 pl-5">
@@ -131,7 +131,7 @@ export default defineComponent({
             }
             {
               // 是否需要展示搜素功能
-              props.search && <Search { ..._.pick(props, ["list", "primary", "foreign", "labelName"]) } onSelect={onSelect}></Search>
+              props.search && <Search {..._.pick(props, ["list", "primary", "foreign", "labelName"])} onSelect={onSelect}></Search>
             }
           </LayoutHeader>
           <LayoutContent class="tree-body p-5 overflow-auto">

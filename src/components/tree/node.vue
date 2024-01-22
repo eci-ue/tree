@@ -4,13 +4,13 @@
  * @author svon.me@gmail.com
  */
 
-import  * as _ from "lodash-es";
+import * as _ from "lodash-es";
 import * as types from "../props";
 import { isExpand } from "./util";
 import { Checkbox, Radio } from "ant-design-vue";
 import { CaretRightOutlined, CaretDownOutlined } from "@ant-design/icons-vue";
 
-import type {Node} from "src/components/tree/type";
+import type { Node } from "./type";
 import type { CheckboxChangeEvent } from "ant-design-vue/es/checkbox/interface";
 
 const slots = defineSlots();
@@ -48,7 +48,7 @@ const iconClassName: string[] = ["ml-3", "first:ml-0", "cursor-pointer", "text-p
 const activeClassName: string[] = ["rounded-lg", "bg-primary", "bg-opacity-20"];
 
 // 展开收起事件处理
-const onChangeIcon = function(e: Event) {
+const onChangeIcon = function (e: Event) {
   e.stopPropagation();
   if (props.node && props.node.children && _.size(props.node.children) > 0) {
     const key = props.node[props.primary];
@@ -58,7 +58,7 @@ const onChangeIcon = function(e: Event) {
 }
 
 // 复选框选中处理
-const onChangeCheckbox = function(e: CheckboxChangeEvent) {
+const onChangeCheckbox = function (e: CheckboxChangeEvent) {
   const key = props.node[props.primary];
   const selected: boolean = e.target.checked;
   $emit("checked", key, selected);
@@ -79,9 +79,11 @@ const onActive = function (e: Event) {
       <Radio :value="node[primary]"></Radio>
     </div>
     <div v-else-if="checkbox">
-      <Checkbox :checked="isExpand(node[primary], checked)" :indeterminate="indeterminate[node[primary]]" :name="`${node[primary]}-node`"  @change="onChangeCheckbox"></Checkbox>
+      <Checkbox :checked="isExpand(node[primary], checked)" :indeterminate="indeterminate[node[primary]]"
+        :name="`${node[primary]}-node`" @change="onChangeCheckbox"></Checkbox>
     </div>
-    <slot name="icon" :node="node" :expand="isExpand(node[primary], expand)" :class-name="iconClassName" :on-click="onChangeIcon">
+    <slot name="icon" :node="node" :expand="isExpand(node[primary], expand)" :class-name="iconClassName"
+      :on-click="onChangeIcon">
       <div v-if="node.children && node.children.length > 0" :class="iconClassName" @click.stop="onChangeIcon">
         <CaretDownOutlined class="flex" v-if="isExpand(node[primary], expand)"></CaretDownOutlined>
         <CaretRightOutlined class="flex" v-else></CaretRightOutlined>

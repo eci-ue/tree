@@ -7,12 +7,13 @@ import * as _ from "lodash-es";
 import * as util from "./util";
 import * as types from "../props";
 import NodeView from "./node.vue";
-import type { VNode, } from "vue";
 import { defineComponent, } from "vue";
 import DBList from "@fengqiaogang/dblist";
+
+import type { VNode, } from "vue";
 import type { Node, TreeProps } from "./type";
 
-const Content= defineComponent({
+const Content = defineComponent({
   name: "TreeContent",
   emits: ["update:list", "update:checked", "update:active", "active", "update:expand"],
   props: {
@@ -84,7 +85,7 @@ const Content= defineComponent({
           children = <Content {...result}>{slots}</Content>;
         }
         return (<div key={node[props.primary]}>
-          <NodeView {..._.omit(props, "list") } indeterminate={ props.indeterminate } node={node} onExpand={ onExpand } onChecked={ onChecked } onActive={ onActive }>{slots}</NodeView>
+          <NodeView {..._.omit(props, "list")} indeterminate={props.indeterminate} node={node} onExpand={onExpand} onChecked={onChecked} onActive={onActive}>{slots}</NodeView>
           {children && <div class={childrenClassName}>{children}</div>}
         </div>);
       });

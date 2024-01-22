@@ -85,17 +85,17 @@ export const onChecked = function (
 };
 
 // 获取右侧穿梭框列表数据
-export const getTransferResult = function (list: Node[], primary: string, foreign: string ,keys: Array<string | number>): Node[] {
+export const getTransferResult = function (list: Node[], primary: string, foreign: string, keys: Array<string | number>): Node[] {
   const db = new DBList<Node>(list, primary, foreign);
-  const array = db.select({[primary]: keys});
+  const array = db.select({ [primary]: keys });
   const data = new DBList<Node>(array, db.primary, db.foreign);
   for (const node of data.clone()) {
-    const value = data.selectOne({[db.primary]: node[db.foreign]});
+    const value = data.selectOne({ [db.primary]: node[db.foreign] });
     if (value) {
       continue;
     }
     // 数据调整
-    data.remove({[db.primary]: node[db.primary]});
+    data.remove({ [db.primary]: node[db.primary] });
     data.insert(_.omit(node, [db.foreign]));
   }
   return data.childrenDeep();
